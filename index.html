@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Inspired2Site — Assistant</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <link rel="stylesheet" href="miracle.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:linear-gradient(180deg,#0c0c0f,#0b0b0d);color:#e6eefc}
+    .app{display:grid;grid-template-columns:1fr 480px;gap:18px;padding:18px;min-height:100vh}
+    .panel{background:rgba(255,255,255,0.02);padding:14px;border-radius:12px;backdrop-filter: blur(6px);border:1px solid rgba(255,255,255,0.03)}
+    .header{display:flex;align-items:center;justify-content:space-between;padding:12px;border-radius:12px;margin-bottom:12px}
+    .glass{background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));box-shadow:0 6px 30px rgba(0,0,0,0.6);border-radius:12px;padding:10px;border:1px solid rgba(255,255,255,0.04)}
+    .chat{display:flex;flex-direction:column;height:76vh}
+    .messages{flex:1;overflow:auto;padding:8px;display:flex;flex-direction:column;gap:8px}
+    .inputRow{display:flex;gap:8px;align-items:center}
+    .btn{padding:.6rem 1rem;border-radius:10px;border:none;background:linear-gradient(90deg,#56ccf2,#2f80ed);color:white;cursor:pointer}
+    .msg{padding:10px;border-radius:10px;max-width:85%}
+    .msg.user{align-self:flex-end;background:rgba(255,255,255,0.04);color:#fff}
+    .msg.bot{align-self:flex-start;background:rgba(255,255,255,0.02);color:#dfe9ff}
+    .preview{height:76vh;overflow:auto;padding:12px}
+    .mini{font-size:12px;color:#b9c0ff}
+    @media (max-width:900px){ .app{grid-template-columns:1fr;} }
+    .controls{display:flex;gap:8px;margin-top:8px}
+    .fileInput{display:none}
+    .hero-preview{background:#fff;border-radius:12px;padding:20px;color:#111}
+  </style>
+</head>
+<body>
+  <div style="padding:12px">
+    <div class="header glass">
+      <div style="display:flex;gap:12px;align-items:center">
+        <img src="logo.svg" alt="logo" width="36" height="36" style="border-radius:8px"/>
+        <div>
+          <div style="font-weight:700">Inspired2Site</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.6)">AI-powered inspiration → Elementor-ready export</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button id="settingsBtn" class="btn">Settings</button>
+      </div>
+    </div>
+
+    <div class="app">
+      <div class="panel">
+        <h3 style="margin:0">Assistant</h3>
+        <p class="mini">Paste a URL, upload a screenshot, or type instructions. The assistant will analyze and generate an editable preview and an export.</p>
+
+        <div class="chat">
+          <div id="messages" class="messages"></div>
+
+          <div style="margin-top:8px" class="inputRow">
+            <input id="input" placeholder="Type message or paste URL (e.g., https://example.com)" style="flex:1;padding:.6rem;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);color:inherit" />
+            <button id="sendBtn" class="btn">Send</button>
+          </div>
+
+          <div class="controls">
+            <button id="analyzeBtn" class="btn">Analyze URL</button>
+            <button id="imageBtn" class="btn">Generate Image</button>
+            <button id="exportBtn" class="btn">Download Export</button>
+            <label class="btn" style="cursor:pointer"><input id="file" class="fileInput" type="file" accept="image/*"></input> Upload Image</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel preview">
+        <h3 style="margin-top:0">Live Preview</h3>
+        <div id="previewArea"><p class="mini">Preview will appear here after analyze/generate actions.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
